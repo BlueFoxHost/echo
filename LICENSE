@@ -1,21 +1,7 @@
-MIT License
+Copyright (C) 2023 BlueFoxHost, Inc. All Rights Reserved.
 
-Copyright (c) 2023 BlueFoxHost
+The contents of this file and any associated materials (collectively referred to as the "Software") constitute confidential and proprietary information of BlueFoxHost, Inc. Any unauthorized copying, reproduction, distribution, public performance, display, modification, or any other use of the Software, in whole or in part, is strictly prohibited and may be subject to legal action.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+No license or right relating to the Software or any associated documentation, whether under patent, copyright, trademark, trade secret, or any other form of intellectual property, is granted, assigned, or transferred implicitly or otherwise, without express written authorization from BlueFoxHost, Inc.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+Authored by Joshua Eubanks <joshe@bluefoxhost.com>
