@@ -21,7 +21,7 @@ services:
       - "3000:3000"
     volumes:
       - webroot:/var/www/html
-      - ./nginx/conf:/etc/nginx/templates/nginx.conf.template
+      - ./nginx/conf:/etc/nginx/confd.d
       - certbot-etc:/etc/letsencrypt
       - certbot-var:/var/lib/letsencrypt
       - ./dhparam:/etc/ssl/certs
