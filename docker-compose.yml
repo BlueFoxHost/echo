@@ -20,15 +20,14 @@ services:
       - "80:80"
       - "3000:3000"
     volumes:
-      - ./webroot:/var/www/html
+      - webroot:/var/www/html
       - ./nginx/conf:/etc/nginx/templates/nginx.conf.template
-      - ./certbot-etc:/etc/letsencrypt
-      - ./certbot-var:/var/lib/letsencrypt
+      - certbot-etc:/etc/letsencrypt
+      - certbot-var:/var/lib/letsencrypt
       - ./dhparam:/etc/ssl/certs
     environment:
       - SERVER
       - DOMAIN
-      - NGINX_ENVSUBST_OUTPUT_DIR="/etc/nginx"
     depends_on:
       - nodejs
     networks:
@@ -37,9 +36,9 @@ services:
     image: certbot/certbot
     container_name: certbot
     volumes:
-      - ./certbot-etc:/etc/letsencrypt
-      - ./certbot-var:/var/lib/letsencrypt
-      - ./webroot:/var/www/html
+      - certbot-etc:/etc/letsencrypt
+      - certbot-var:/var/lib/letsencrypt
+      - webroot:/var/www/html
     depends_on:
       - webserver
     command: certonly --webroot --webroot-path=/var/www/html --email ${EMAIL} --agree-tos --no-eff-email --staging -d ${DOMAIN}
