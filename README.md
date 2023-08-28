@@ -16,11 +16,20 @@ For a full enviroment, use docker compose.
 
 ## Deployment
 
-- git clone https://github.com/BlueFoxHost/echo.git
-- cd echo
-- nano .env.example
-- REMEMBER TO RENAME IT TO .env
-- docker-compose up -d
+Follow these steps to deploy the Echo application:
+
+1. Clone the repository:
+`git clone https://github.com/BlueFoxHost/echo.git`
+
+2. Navigate to the project directory:
+`cd echo`
+
+3. Edit the `.env.example` file with your configuration settings.
+
+4. Rename the `.env.example` file to `.env`.
+
+5. Start the application using Docker Compose:
+`docker-compose up -d`
 
 ## License
 
