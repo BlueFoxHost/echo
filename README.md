@@ -26,9 +26,9 @@ Follow these steps to deploy the Echo application:
 
 3. Edit the `.env.example` file with your configuration settings.
 
-4. Edit the `nginx/conf/nginx.conf` and replace `<YOUR DOMAIN>` with the domain name in .env.
+4. Rename the `.env.example` file to `.env`.
 
-5. Rename the `.env.example` file to `.env`.
+5. Edit the `nginx/conf/nginx.conf` and replace `<YOUR DOMAIN>` with the domain name in .env.
 
 6. Install Docker and Docker-Compose:
 You can use the included script `install_docker.sh` to install both Docker and Docker-Compose.
