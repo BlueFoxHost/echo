@@ -21,13 +21,14 @@ services:
       - "3000:3000"
     volumes:
       - ./webroot:/var/www/html
-      - ./nginx/conf:/etc/nginx/conf.d
+      - ./nginx/conf:/etc/nginx/templates/nginx.conf.template
       - ./certbot-etc:/etc/letsencrypt
       - ./certbot-var:/var/lib/letsencrypt
       - ./dhparam:/etc/ssl/certs
     environment:
       - SERVER
       - DOMAIN
+      NGINX_ENVSUBST_OUTPUT_DIR: /etc/nginx
     depends_on:
       - nodejs
     networks:
