@@ -26,17 +26,19 @@ Follow these steps to deploy the Echo application:
 
 3. Edit the `.env.example` file with your configuration settings.
 
-4. Rename the `.env.example` file to `.env`.
+4. Edit the `nginx/conf/nginx.conf` and replace `<YOUR DOMAIN>` with the domain name in .env.
 
-5. Install Docker and Docker-Compose:
+5. Rename the `.env.example` file to `.env`.
+
+6. Install Docker and Docker-Compose:
 You can use the included script `install_docker.sh` to install both Docker and Docker-Compose.
 
-6. Run `openssl.sh` to generate a Diffie–Hellman param file.
+7. Run `openssl.sh` to generate a Diffie–Hellman param file.
 
-7. Start the application using Docker Compose:
+8. Start the application using Docker Compose:
 `docker-compose up -d`
 
-8. Edit your crontab to add the ssl_renew script.
+9. Edit your crontab to add the ssl_renew script.
 `sudo crontab -e`
 `0 0 * * * ~/echo/ssl_renew.sh >> /var/log/cron.log 2>&1`
 
