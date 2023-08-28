@@ -18,14 +18,15 @@ services:
     restart: unless-stopped
     ports:
       - "80:80"
-      - "443:443"
+      - "3000:3000"
     volumes:
-      - webroot:/var/www/html
+      - ./webroot:/var/www/html
       - ./nginx/conf:/etc/nginx/conf.d
-      - certbot-etc:/etc/letsencrypt
-      - certbot-var:/var/lib/letsencrypt
+      - ./certbot-etc:/etc/letsencrypt
+      - ./certbot-var:/var/lib/letsencrypt
     environment:
       - SERVER
+      - DOMAIN
     depends_on:
       - nodejs
     networks:
@@ -34,9 +35,10 @@ services:
     image: certbot/certbot
     container_name: certbot
     volumes:
-      - certbot-etc:/etc/letsencrypt
-      - certbot-var:/var/lib/letsencrypt
-      - webroot:/var/www/html
+      - ./certbot-etc:/etc/letsencrypt
+      - ./certbot-var:/var/lib/letsencrypt
+      - ./webroot:/var/www/html
+      - ./dhparam:/etc/ssl/certs
     depends_on:
       - webserver
     command: certonly --webroot --webroot-path=/var/www/html --email ${EMAIL} --agree-tos --no-eff-email --staging -d ${DOMAIN}
@@ -49,3 +51,4 @@ volumes:
   webroot:
   certbot-etc:
   certbot-var:
+  dhparam:
