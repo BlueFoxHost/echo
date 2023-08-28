@@ -24,6 +24,7 @@ services:
       - ./nginx/conf:/etc/nginx/conf.d
       - ./certbot-etc:/etc/letsencrypt
       - ./certbot-var:/var/lib/letsencrypt
+      - ./dhparam:/etc/ssl/certs
     environment:
       - SERVER
       - DOMAIN
@@ -38,7 +39,6 @@ services:
       - ./certbot-etc:/etc/letsencrypt
       - ./certbot-var:/var/lib/letsencrypt
       - ./webroot:/var/www/html
-      - ./dhparam:/etc/ssl/certs
     depends_on:
       - webserver
     command: certonly --webroot --webroot-path=/var/www/html --email ${EMAIL} --agree-tos --no-eff-email --staging -d ${DOMAIN}
