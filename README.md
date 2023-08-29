@@ -1,6 +1,6 @@
 # Echo
 
-A utility used to ping servers. Currently closed source.
+An open source utility used to ping servers.
 
 ## Features
 
