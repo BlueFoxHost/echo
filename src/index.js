@@ -61,11 +61,9 @@ function handleRequest(req, res, routeHandlers) {
     // Read the challenge response from the file
     fs.readFile(filePath, 'utf8', (err, challengeResponse) => {
       if (err) {
-        res.writeHead(404, { 'Content-Type': 'text/plain' });
         res.end(err);
         return;
       } else {
-        res.writeHead(200, { 'Content-Type': 'text/plain' });
         res.end(challengeResponse);
         return;
       }
