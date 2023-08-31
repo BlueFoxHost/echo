@@ -6,6 +6,7 @@ services:
       dockerfile: Dockerfile
     image: nodejs_${ENVIRONMENT}
     container_name: nodejs_${ENVIRONMENT}
+    user: "1000:1000"
     restart: unless-stopped
     environment:
       - HOST
@@ -13,7 +14,7 @@ services:
       - HTTPS_PORT
       - DOMAIN
     volumes:
-      - certbot-etc:/etc/letsencrypt
+      - certbot-etc:/etc/letsencrypt:rw
       - certbot-var:/var/lib/letsencrypt
       - webroot:/var/www/html
     ports:
@@ -23,7 +24,7 @@ services:
     image: certbot/certbot
     container_name: certbot_${ENVIRONMENT}
     volumes:
-      - certbot-etc:/etc/letsencrypt
+      - certbot-etc:/etc/letsencrypt:rw
       - certbot-var:/var/lib/letsencrypt
       - webroot:/var/www/html
     command: certonly --webroot --webroot-path=/var/www/html --email ${EMAIL} --agree-tos --no-eff-email --force-renewal ${STAGING} -d ${DOMAIN}
