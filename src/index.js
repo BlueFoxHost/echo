@@ -8,7 +8,7 @@ const { start } = require('node:repl');
 const HOST = process.env.HOST|| '0.0.0.0';
 const HTTP_PORT = process.env.HTTP_PORT || 80;
 const HTTPS_PORT = process.env.HTTPS_PORT || 3000;
-const CHALLENGE_DIRECTORY = process.env.CHALLENGE_DIRECTORY || '/var/www/html/.well-known/acme-challenge';
+const CHALLENGE_DIRECTORY = process.env.CHALLENGE_DIRECTORY || '/var/www/html/.well-known/acme-challenge/';
 const DOMAIN = process.env.DOMAIN;
 if (!DOMAIN) throw new Error('CRITICAL ERROR: NO DOMAIN VARIABLE SPECIFIED IN ENV.')
 
@@ -49,7 +49,7 @@ function handleRequest(req, res, routeHandlers) {
   if (url === '/') return handleRedirect(req, res, 'https://bluefoxhost.com');
   if (req.url.startsWith('/.well-known/acme-challenge/')) {
     const challengeToken = req.url.split('/').pop(); // Extract the challenge token from the URL
-    const sanitizedToken = sanitizeToken(challengeToken); // Prevent directory traversal.
+    const sanitizedToken = sanitizeToken(CHALLENGE_DIRECTORY, challengeToken); // Prevent directory traversal.
     if (!sanitizedToken) {
       res.writeHead(400, { 'Content-Type': 'text/plain' });
       res.end('Bad Request');

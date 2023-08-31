@@ -21,7 +21,7 @@ function getRouteHandlerName(url) {
     return sanitizedUrl.substr(1);
 };
   
-function sanitizeToken(token) {
+function sanitizeToken(root, token) {
 
     if (token.indexOf('\0') !== -1) {
         return false;
