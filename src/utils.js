@@ -26,7 +26,7 @@ function sanitizeToken(root, token) {
     if (token.indexOf('\0') !== -1) {
         return false;
     }
-
+    
     var safeInput = path.normalize(token).replace(/^(\.\.(\/|\\|$))+/, '');
     var pathString = path.join(root, safeInput);
     if (pathString.indexOf(root) !== 0) {
