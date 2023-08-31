@@ -4,8 +4,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: nodejs
-    container_name: nodejs
+    image: nodejs_${ENVIRONMENT}
+    container_name: nodejs_${ENVIRONMENT}
     restart: unless-stopped
     environment:
       - HOST
@@ -21,7 +21,7 @@ services:
       - "3000:3000"
   certbot:
     image: certbot/certbot
-    container_name: certbot
+    container_name: certbot_${ENVIRONMENT}
     volumes:
       - certbot-etc:/etc/letsencrypt
       - certbot-var:/var/lib/letsencrypt
