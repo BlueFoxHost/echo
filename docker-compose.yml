@@ -11,6 +11,7 @@ services:
       - HOST
       - HTTP_PORT
       - HTTPS_PORT
+      - DOMAIN
     volumes:
       - certbot-etc:/etc/letsencrypt
       - certbot-var:/var/lib/letsencrypt
