@@ -27,6 +27,10 @@ function sanitizeToken(root, token) {
         return false;
     }
     
+    if (!/^[\w-]+$/.test(token)) {
+        return false;
+    }
+
     var safeInput = path.normalize(token).replace(/^(\.\.(\/|\\|$))+/, '');
     var pathString = path.join(root, safeInput);
     if (pathString.indexOf(root) !== 0) {

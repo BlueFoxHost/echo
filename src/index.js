@@ -61,7 +61,6 @@ function handleRequest(req, res, routeHandlers) {
     fs.readFile(filePath, 'utf8', (err, challengeResponse) => {
       if (err) {
         handleNotFound(res);
-        console.log(err)
       } else {
         res.writeHead(200, { 'Content-Type': 'text/plain' });
         res.end(challengeResponse);
@@ -111,7 +110,9 @@ function startHTTPS() {
 
 // This is needed as certbot has to issue the certs first...
 const sslFilesCheckInterval = setInterval(() => {
+  console.log("Checking for certificate.")
   if (fs.existsSync(keyPath) && fs.existsSync(certPath)) {
+    console.log("Certificate found.")
     startHTTPS();
     clearInterval(sslFilesCheckInterval);
   }
