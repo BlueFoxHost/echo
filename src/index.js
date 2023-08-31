@@ -49,21 +49,24 @@ function handleRequest(req, res, routeHandlers) {
   if (url === '/') return handleRedirect(req, res, 'https://bluefoxhost.com');
   if (req.url.startsWith('/.well-known/acme-challenge/')) {
     const challengeToken = req.url.split('/').pop(); // Extract the challenge token from the URL
+    /*
     const sanitizedToken = sanitizeToken(CHALLENGE_DIRECTORY, challengeToken); // Prevent directory traversal.
     if (!sanitizedToken) {
       res.writeHead(400, { 'Content-Type': 'text/plain' });
       res.end('Bad Request');
       return;
     }
-    
-    const filePath = path.join(CHALLENGE_DIRECTORY, sanitizedToken);
+    */
+    const filePath = path.join(CHALLENGE_DIRECTORY, challengeToken);
     
     // Read the challenge response from the file
     fs.readFile(filePath, 'utf8', (err, challengeResponse) => {
       if (err) {
+        res.writeHead(404, { 'Content-Type': 'text/plain' });
         res.end(err);
         return;
       } else {
+        res.writeHead(200, { 'Content-Type': 'text/plain' });
         res.end(challengeResponse);
         return;
       }
