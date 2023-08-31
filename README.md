@@ -36,7 +36,7 @@ You can use the included script `install_docker.sh` to install both Docker and D
 
 7. Edit your crontab to add the ssl_renew script.
 `sudo crontab -e`
-`0 0 * * * ~/echo/ssl_renew.sh >> /var/log/cron.log 2>&1`
+`0 0 */14 * * ~/echo/ssl_renew.sh >> /var/log/cron.log 2>&1`
 
 ## License
 
