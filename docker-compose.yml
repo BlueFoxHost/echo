@@ -14,7 +14,7 @@ services:
       - HTTPS_PORT
       - DOMAIN
     volumes:
-      - certbot-etc:/etc/letsencrypt:rw
+      - certbot-etc:/home/node/etc/letsencrypt:rw
       - certbot-var:/var/lib/letsencrypt
       - webroot:/var/www/html
     ports:
@@ -24,7 +24,7 @@ services:
     image: certbot/certbot
     container_name: certbot_${ENVIRONMENT}
     volumes:
-      - certbot-etc:/home/node/etc/letsencrypt:rw
+      - certbot-etc:/etc/letsencrypt:rw
       - certbot-var:/var/lib/letsencrypt
       - webroot:/var/www/html
     command: certonly --webroot --webroot-path=/var/www/html --email ${EMAIL} --agree-tos --no-eff-email --force-renewal ${STAGING} -d ${DOMAIN}
