@@ -24,11 +24,13 @@ function getRouteHandlerName(url) {
 function sanitizeToken(token) {
     // Prevent poison null bytes
     if (token.indexOf('\0') !== -1) {
+      console.log("Poison null bytes detected.")
       return null;
     }
   
     // Whitelist characters
     if (!/^[a-zA-Z0-9]+$/.test(token)) {
+      console.log("Non whitelisted characters detected.")
       return null;
     }
   
@@ -40,7 +42,7 @@ function sanitizeToken(token) {
     if (filename.indexOf(rootDirectory) !== 0) {
       return null;
     }
-  
+    console.log("Sanitized Path:", safePath)
     return safePath;
 }
 
