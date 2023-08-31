@@ -76,8 +76,8 @@ const httpServer = http.createServer((req, res) => {
 
 });
 
-httpServer.listen(PORT, HOST, () => {
-  console.log(`Server is listening on ${PORT}.\nServer is available at http://${HOST}:${PORT}`);
+httpServer.listen(HTTP_PORT, HOST, () => {
+  console.log(`Server is listening on ${HTTP_PORT}.\nServer is available at http://${HOST}:${HTTP_PORT}`);
 });
 
 //---- HTTPS SERVER ----
@@ -88,8 +88,8 @@ const httpsServer = https.createServer(options, (req, res) => {
 
 });
 
-httpsServer.listen(PORT, HOST, () => {
-  console.log(`HTTPS Server is listening on ${PORT}.\nHTTPS Server is available at https://${DOMAIN}:${PORT}`);
+httpsServer.listen(HTTPS_PORT, HOST, () => {
+  console.log(`HTTPS Server is listening on ${HTTPS_PORT}.\nHTTPS Server is available at https://${DOMAIN}:${HTTPS_PORT}`);
 });
 
 
