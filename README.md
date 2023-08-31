@@ -12,7 +12,7 @@ An open source utility used to ping servers.
 
 To run just the docker file with the Echo NodeJS app, run
 `docker build .`
-For a full enviroment, use docker compose.
+For a full enviroment, use `docker compose up --build`.
 
 ## Deployment
 

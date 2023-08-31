@@ -12,8 +12,8 @@ const CHALLENGE_DIRECTORY = process.env.CHALLENGE_DIRECTORY || '/var/www/html/.w
 const DOMAIN = process.env.DOMAIN;
 if (!DOMAIN) throw new Error('CRITICAL ERROR: NO DOMAIN VARIABLE SPECIFIED IN ENV.')
 
-const certPath =  `/etc/letsencrypt/live/${DOMAIN}/fullchain.pem`
-const keyPath =  `/etc/letsencrypt/live/${DOMAIN}/privkey.pem`
+const certPath =  `/home/node/etc/letsencrypt/live/${DOMAIN}/fullchain.pem`
+const keyPath =  `/home/node/etc/letsencrypt/live/${DOMAIN}/privkey.pem`
 
 function loadRouteHandlers() {
   const routeHandlers = {};
