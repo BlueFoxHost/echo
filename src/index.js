@@ -62,7 +62,7 @@ function handleRequest(req, res, routeHandlers) {
     fs.readFile(filePath, 'utf8', (err, challengeResponse) => {
       if (err) {
         res.writeHead(404, { 'Content-Type': 'text/plain' });
-        res.end('Not Found');
+        res.end(err);
         return;
       } else {
         res.writeHead(200, { 'Content-Type': 'text/plain' });
