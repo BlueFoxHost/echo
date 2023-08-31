@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile
     image: nodejs_${ENVIRONMENT}
     container_name: nodejs_${ENVIRONMENT}
-    user: "1000:1000"
+    user: '1000:1000'
     restart: unless-stopped
     environment:
       - HOST
@@ -23,6 +23,7 @@ services:
   certbot:
     image: certbot/certbot
     container_name: certbot_${ENVIRONMENT}
+    user: '1000:1000'
     volumes:
       - certbot-etc:/etc/letsencrypt:rw
       - certbot-var:/var/lib/letsencrypt
