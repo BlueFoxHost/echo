@@ -16,6 +16,8 @@ const options = {
   key: fs.readFileSync(`/etc/letsencrypt/live/${DOMAIN}/privkey.pem`),
 };
 
+const routeHandlers = loadRouteHandlers();
+
 function handleRequest(req, res, routeHandlers) {
   
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -70,7 +72,6 @@ function handleRequest(req, res, routeHandlers) {
 
 const httpServer = http.createServer((req, res) => {
 
-  const routeHandlers = loadRouteHandlers();
   handleRequest(req, res, routeHandlers);
 
 });
@@ -83,7 +84,6 @@ httpServer.listen(PORT, HOST, () => {
 
 const httpsServer = https.createServer(options, (req, res) => {
 
-  const routeHandlers = loadRouteHandlers();
   handleRequest(req, res, routeHandlers);
 
 });
