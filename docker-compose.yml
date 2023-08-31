@@ -18,7 +18,7 @@ services:
       - webroot:/var/www/html
     ports:
       - "80:80"
-      - "3000:3000"
+      - "${HTTPS_PORT}:${HTTPS_PORT}"
   certbot:
     image: certbot/certbot
     container_name: certbot_${ENVIRONMENT}
