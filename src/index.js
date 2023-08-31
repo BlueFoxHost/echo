@@ -81,7 +81,7 @@ httpServer.listen(PORT, HOST, () => {
 
 //---- HTTPS SERVER ----
 
-const httpsServer = http.createServer(options, (req, res) => {
+const httpsServer = https.createServer(options, (req, res) => {
 
   const routeHandlers = loadRouteHandlers();
   handleRequest(req, res, routeHandlers);
