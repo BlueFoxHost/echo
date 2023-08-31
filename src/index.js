@@ -11,6 +11,7 @@ const HTTPS_PORT = process.env.HTTPS_PORT || 3000;
 const CHALLENGE_DIRECTORY = process.env.CHALLENGE_DIRECTORY || '/var/www/html/.well-known/acme-challenge';
 const DOMAIN = process.env.DOMAIN;
 if (!DOMAIN) throw new Error('CRITICAL ERROR: NO DOMAIN VARIABLE SPECIFIED IN ENV.')
+
 const certPath =  `/etc/letsencrypt/live/${DOMAIN}/fullchain.pem`
 const keyPath =  `/etc/letsencrypt/live/${DOMAIN}/privkey.pem`
 
@@ -110,7 +111,6 @@ function startHTTPS() {
 
 // This is needed as certbot has to issue the certs first...
 const sslFilesCheckInterval = setInterval(() => {
-
   if (fs.existsSync(keyPath) && fs.existsSync(certPath)) {
     startHTTPS();
     clearInterval(sslFilesCheckInterval);
