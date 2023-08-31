@@ -118,6 +118,8 @@ const sslFilesCheckInterval = setInterval(() => {
   }
 }, 1000); // Check every second
 
+sslFilesCheckInterval;
+
 function handle(signal) {
   console.log(`*^!@4=> Received event: ${signal}`)
   process.exit()
