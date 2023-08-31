@@ -31,12 +31,10 @@ Follow these steps to deploy the Echo application:
 5. Install Docker and Docker-Compose:
 You can use the included script `install_docker.sh` to install both Docker and Docker-Compose.
 
-6. Run `openssl.sh` to generate a Diffie–Hellman param file.
-
-7. Start the application using Docker Compose:
+6. Start the application using Docker Compose:
 `docker-compose up -d`
 
-8. Edit your crontab to add the ssl_renew script.
+7. Edit your crontab to add the ssl_renew script.
 `sudo crontab -e`
 `0 0 * * * ~/echo/ssl_renew.sh >> /var/log/cron.log 2>&1`
 
