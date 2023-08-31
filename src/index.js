@@ -110,7 +110,7 @@ function startHTTPS() {
 
 // This is needed as certbot has to issue the certs first...
 const sslFilesCheckInterval = setInterval(() => {
-  console.log("Checking for certificate.")
+  console.log(`Checking for certificate at ${certPath} and key at ${keyPath}`)
   if (fs.existsSync(keyPath) && fs.existsSync(certPath)) {
     console.log("Certificate found.")
     startHTTPS();
