@@ -3,6 +3,7 @@ const http = require('node:http');
 const fs = require('node:fs');
 const path = require('path');
 const { handleNotFound, handleRedirect, handleMethodNotAllowed, getRouteHandlerName, sanitizeToken } = require('./utils');
+const { start } = require('node:repl');
 
 const HOST = process.env.HOST|| '0.0.0.0';
 const HTTP_PORT = process.env.HTTP_PORT || 80;
@@ -10,11 +11,21 @@ const HTTPS_PORT = process.env.HTTPS_PORT || 3000;
 const CHALLENGE_DIRECTORY = process.env.CHALLENGE_DIRECTORY || '/var/www/html/.well-known/acme-challenge';
 const DOMAIN = process.env.DOMAIN;
 if (!DOMAIN) throw new Error('CRITICAL ERROR: NO DOMAIN VARIABLE SPECIFIED IN ENV.')
+const certPath =  `/etc/letsencrypt/live/${DOMAIN}/fullchain.pem`
+const keyPath =  `/etc/letsencrypt/live/${DOMAIN}/privkey.pem`
 
-const options = {
-  cert: fs.readFileSync(`/etc/letsencrypt/live/${DOMAIN}/fullchain.pem`),
-  key: fs.readFileSync(`/etc/letsencrypt/live/${DOMAIN}/privkey.pem`),
+function loadRouteHandlers() {
+  const routeHandlers = {};
+  const routeFiles = fs.readdirSync(path.join(__dirname, 'routes'));
+
+  routeFiles.forEach(file => {
+    const routeName = path.basename(file, '.js');
+    routeHandlers[routeName] = require(`./routes/${routeName}`);
+  });
+
+  return routeHandlers;
 };
+
 
 const routeHandlers = loadRouteHandlers();
 
@@ -81,29 +92,30 @@ httpServer.listen(HTTP_PORT, HOST, () => {
 });
 
 //---- HTTPS SERVER ----
+function startHTTPS() {
+  const options = {
+    cert: fs.readFileSync(certPath),
+    key: fs.readFileSync(keyPath),
+  };
+  const httpsServer = https.createServer(options, (req, res) => {
 
-const httpsServer = https.createServer(options, (req, res) => {
+    handleRequest(req, res, routeHandlers);
 
-  handleRequest(req, res, routeHandlers);
-
-});
-
-httpsServer.listen(HTTPS_PORT, HOST, () => {
-  console.log(`HTTPS Server is listening on ${HTTPS_PORT}.\nHTTPS Server is available at https://${DOMAIN}:${HTTPS_PORT}`);
-});
-
-
-function loadRouteHandlers() {
-  const routeHandlers = {};
-  const routeFiles = fs.readdirSync(path.join(__dirname, 'routes'));
-
-  routeFiles.forEach(file => {
-    const routeName = path.basename(file, '.js');
-    routeHandlers[routeName] = require(`./routes/${routeName}`);
   });
 
-  return routeHandlers;
-};
+  httpsServer.listen(HTTPS_PORT, HOST, () => {
+    console.log(`HTTPS Server is listening on ${HTTPS_PORT}.\nHTTPS Server is available at https://${DOMAIN}:${HTTPS_PORT}`);
+  });
+}
+
+// This is needed as certbot has to issue the certs first...
+const sslFilesCheckInterval = setInterval(() => {
+
+  if (fs.existsSync(keyPath) && fs.existsSync(certPath)) {
+    startHTTPS();
+    clearInterval(sslFilesCheckInterval);
+  }
+}, 1000); // Check every second
 
 function handle(signal) {
   console.log(`*^!@4=> Received event: ${signal}`)
