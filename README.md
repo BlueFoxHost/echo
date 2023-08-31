@@ -4,15 +4,15 @@ An open source utility used to ping servers.
 
 ## Features
 
-- Zero dependencies
+- Minimal dependencies. (Docker, Docker Compose)
 - Simple and configurable codebase
-- NGINX and Certbot bundled.
+- NodeJS and Certbot already bundled. Just install Docker and Docker-Compose and go.
 
 ## Local Development
 
 To run just the docker file with the Echo NodeJS app, run
 `docker build .`
-For a full enviroment, use docker compose.
+For a full enviroment, use `docker compose up --build`.
 
 ## Deployment
 
@@ -28,19 +28,15 @@ Follow these steps to deploy the Echo application:
 
 4. Rename the `.env.example` file to `.env`.
 
-5. Edit the `nginx/conf/nginx.conf` and replace `<YOUR DOMAIN>` with the domain name in .env.
-
-6. Install Docker and Docker-Compose:
+5. Install Docker and Docker-Compose:
 You can use the included script `install_docker.sh` to install both Docker and Docker-Compose.
 
-7. Run `openssl.sh` to generate a Diffie–Hellman param file.
-
-8. Start the application using Docker Compose:
+6. Start the application using Docker Compose:
 `docker-compose up -d`
 
-9. Edit your crontab to add the ssl_renew script.
+7. Edit your crontab to add the ssl_renew script.
 `sudo crontab -e`
-`0 0 * * * ~/echo/ssl_renew.sh >> /var/log/cron.log 2>&1`
+`0 0 */14 * * ~/echo/ssl_renew.sh >> /var/log/cron.log 2>&1`
 
 ## License
 

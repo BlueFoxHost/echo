@@ -4,51 +4,31 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: nodejs
-    container_name: nodejs
+    image: nodejs_${ENVIRONMENT}
+    container_name: nodejs_${ENVIRONMENT}
     restart: unless-stopped
-    networks:
-      - app
     environment:
       - HOST
-      - PORT
-  webserver:
-    image: nginx:1.25-bookworm
-    container_name: webserver
-    restart: unless-stopped
+      - HTTP_PORT
+      - HTTPS_PORT
+      - DOMAIN
+    volumes:
+      - certbot-etc:/etc/letsencrypt
+      - certbot-var:/var/lib/letsencrypt
+      - webroot:/var/www/html
     ports:
       - "80:80"
-      - "3000:3000"
-    volumes:
-      - webroot:/var/www/html
-      - ./nginx/conf:/etc/nginx/conf.d
-      - certbot-etc:/etc/letsencrypt
-      - certbot-var:/var/lib/letsencrypt
-      - ./dhparam:/etc/ssl/certs
-    environment:
-      - SERVER
-      - DOMAIN
-    depends_on:
-      - nodejs
-    networks:
-      - app
+      - "${HTTPS_PORT}:${HTTPS_PORT}"
   certbot:
     image: certbot/certbot
-    container_name: certbot
+    container_name: certbot_${ENVIRONMENT}
     volumes:
       - certbot-etc:/etc/letsencrypt
       - certbot-var:/var/lib/letsencrypt
       - webroot:/var/www/html
-    depends_on:
-      - webserver
-    command: certonly --webroot --webroot-path=/var/www/html --email ${EMAIL} --agree-tos --no-eff-email --force-renewal -d ${DOMAIN}
-
-networks:
-  app:
-    driver: bridge 
+    command: certonly --webroot --webroot-path=/var/www/html --email ${EMAIL} --agree-tos --no-eff-email --force-renewal ${STAGING} -d ${DOMAIN}
 
 volumes:
   webroot:
   certbot-etc:
   certbot-var:
-  dhparam:

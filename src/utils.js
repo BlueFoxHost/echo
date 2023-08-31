@@ -1,3 +1,6 @@
+const path = require('path');
+const CHALLENGE_DIRECTORY = process.env.CHALLENGE_DIRECTORY || '/var/www/html/.well-known/acme-challenge';
+
 function handleRedirect(req, res, location) {
     res.writeHead(301, { 'Location': location });
     res.end();
@@ -18,9 +21,28 @@ function getRouteHandlerName(url) {
     return sanitizedUrl.substr(1);
 };
   
+function sanitizeToken(root, token) {
+
+    if (token.indexOf('\0') !== -1) {
+        return false;
+    }
+    
+    if (!/^[\w-]+$/.test(token)) {
+        return false;
+    }
+
+    var safeInput = path.normalize(token).replace(/^(\.\.(\/|\\|$))+/, '');
+    var pathString = path.join(root, safeInput);
+    if (pathString.indexOf(root) !== 0) {
+        return false;
+    }
+    return pathString;
+}
+
 module.exports = { 
     handleNotFound, 
     handleRedirect,
     handleMethodNotAllowed,
-    getRouteHandlerName
+    getRouteHandlerName,
+    sanitizeToken
 };
