@@ -22,28 +22,21 @@ function getRouteHandlerName(url) {
 };
   
 function sanitizeToken(token) {
-    // Prevent poison null bytes
-    if (token.indexOf('\0') !== -1) {
-      console.log("Poison null bytes detected.")
-      return null;
-    }
-  
-    // Whitelist characters
-    if (!/^[a-zA-Z0-9]+$/.test(token)) {
-      console.log("Non whitelisted characters detected.")
-      return null;
-    }
-  
-    // Prevent directory traversal
-    const rootDirectory = path.resolve('/var/www/html'); // Get absolute path
-    const safePath = path.normalize(token).replace(/^(\.\.(\/|\\|$))+/, '');
-    const filename = path.join(CHALLENGE_DIRECTORY, safePath);
 
-    if (filename.indexOf(rootDirectory) !== 0) {
-      return null;
+    if (token.indexOf('\0') !== -1) {
+        return false;
     }
-    console.log("Sanitized Path:", safePath)
-    return safePath;
+
+    if (!/^[a-z0-9]+$/.test(token)) {
+        return false;
+    }
+
+    var safeInput = path.normalize(token).replace(/^(\.\.(\/|\\|$))+/, '');
+    var pathString = path.join(root, safeInput);
+    if (pathString.indexOf(root) !== 0) {
+        return false;
+    }
+    return pathString;
 }
 
 module.exports = { 
