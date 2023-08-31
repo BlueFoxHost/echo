@@ -35,7 +35,7 @@ function handleRequest(req, res, routeHandlers) {
   if (url === '/') return handleRedirect(req, res, 'https://bluefoxhost.com');
   if (req.url.startsWith('/.well-known/acme-challenge/')) {
     const challengeToken = req.url.split('/').pop(); // Extract the challenge token from the URL
-    const sanitizedToken = sanitizeToken(challengeToken);
+    const sanitizedToken = sanitizeToken(challengeToken); // Prevent directory traversal.
     if (!sanitizedToken) {
       res.writeHead(400, { 'Content-Type': 'text/plain' });
       res.end('Bad Request');
@@ -55,7 +55,7 @@ function handleRequest(req, res, routeHandlers) {
       }
     });
   }
-  
+
   const routeHandlerName = getRouteHandlerName(url);
   const routeHandler = routeHandlers[routeHandlerName];
   
@@ -66,6 +66,8 @@ function handleRequest(req, res, routeHandlers) {
   }
 }
 
+//---- HTTP SERVER ----
+
 const httpServer = http.createServer((req, res) => {
 
   const routeHandlers = loadRouteHandlers();
@@ -73,10 +75,11 @@ const httpServer = http.createServer((req, res) => {
 
 });
 
-
 httpServer.listen(PORT, HOST, () => {
   console.log(`Server is listening on ${PORT}.\nServer is available at http://${HOST}:${PORT}`);
 });
+
+//---- HTTPS SERVER ----
 
 const httpsServer = http.createServer(options, (req, res) => {
 
