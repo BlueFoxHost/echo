@@ -63,9 +63,11 @@ function handleRequest(req, res, routeHandlers) {
       if (err) {
         res.writeHead(404, { 'Content-Type': 'text/plain' });
         res.end('Not Found');
+        return;
       } else {
         res.writeHead(200, { 'Content-Type': 'text/plain' });
         res.end(challengeResponse);
+        return;
       }
     });
   }
