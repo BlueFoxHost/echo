@@ -1,5 +1,4 @@
 const path = require('path');
-const CHALLENGE_DIRECTORY = process.env.CHALLENGE_DIRECTORY || '/var/www/html/.well-known/acme-challenge';
 
 function handleRedirect(req, res, location) {
     res.writeHead(301, { 'Location': location });
