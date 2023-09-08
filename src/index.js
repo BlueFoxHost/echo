@@ -3,7 +3,6 @@ const http = require('node:http');
 const fs = require('node:fs');
 const path = require('path');
 const { handleNotFound, handleRedirect, handleMethodNotAllowed, getRouteHandlerName, sanitizeToken } = require('./utils');
-const { start } = require('node:repl');
 
 const HOST = process.env.HOST|| '0.0.0.0';
 const HTTP_PORT = process.env.HTTP_PORT || 80;
