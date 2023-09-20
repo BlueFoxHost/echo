@@ -1,10 +1,7 @@
 version: '3.4'
 services:
   nodejs:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: nodejs_${ENVIRONMENT}
+    image: bluefoxhost/echo
     container_name: nodejs_${ENVIRONMENT}
     restart: unless-stopped
     environment:
